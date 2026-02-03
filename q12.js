@@ -1,0 +1,9 @@
+db.employees.aggregate(
+    [
+        {$match:{department:"IT"}},
+        {$project:{name:1,email:1}},
+        {$sort:{name:1}},
+        {$limit:3},
+        {$skip:1}
+    ]
+)
