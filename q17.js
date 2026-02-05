@@ -6,7 +6,7 @@ db.users.insertOne({
   name: "Rahul Dev",
   email: "rahul@gmail.com",
   password: "1234",
-  role: "student", // student | instructor | admin
+  role: "student", 
 });
 
 
@@ -15,7 +15,7 @@ db.users.insertOne({
   name: "Aryan",
   email: "aryan@gmail.com",
   password: "1234",
-  role: "instructor", // student | instructor | admin
+  role: "instructor", 
 });
 
 
@@ -24,7 +24,7 @@ db.users.insertOne({
   name: "admin",
   email: "admin@gmail.com",
   password: "1234",
-  role: "admin", // student | instructor | admin
+  role: "admin", 
 });
 
 
