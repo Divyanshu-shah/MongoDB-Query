@@ -15,6 +15,9 @@ db.createView("orderView","employees",
             product:"$orders.product",
             orderValue:"$orders.orderValue"
         }},
-
     ]
 )
+
+
+// for deleting a view
+db.viewName.drop()
