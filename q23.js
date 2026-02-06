@@ -57,6 +57,6 @@ rs.initiate(
 
 // db.shutdownServer()
 
-// mongosh "mongodb://localhost:27018,localhost:27019,localhost:27020/?replicaSet=rs1"
+
 
 
