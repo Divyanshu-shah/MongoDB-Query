@@ -1,33 +1,54 @@
-// new terminal
+db.courses.aggregate([
+  {
+    $lookup: {
+      from: "modules",
+      let: { courseId: "$_id" },
+      pipeline: [
+        {
+          $match: {
+            $expr: {
+              $eq: ["$courseId", "$$courseId"]
+            }
+          }
+        }
+      ],
+      as: "modules"
+    }
+  }
+]);
 
-// mongosh "mongodb://localhost:27018,localhost:27019,localhost:27020/?replicaSet=rs1"
+// Nested lookup
 
-// use hdfcbank
+db.courses.aggregate([
+  {
+    $lookup: {
+      from: "modules",
+      let: { courseId: "$_id" },
+      pipeline: [
+        {
+          $match: {
+            $expr: {
+              $eq: ["$courseId", "$$courseId"]
+            }
+          }
+        },
+        {$lookup: {
+          from: "lessons",
+          let: { moduleId: "$_id" },
+          pipeline: [
+            {
+              $match: {
+                $expr: {
+                  $eq: ["$moduleId", "$$moduleId"]
+                }
+              }
+            }
+          ],
+          as: "lessons"
+        }}
+      ],
+      as: "modules"
+    }
+  }
+]);
 
-db.customers.insertOne(
-    {_id:"c1",name:"Potter",balance:1000}
-)
-
-db.customers.insertOne(
-    {_id:"c2",name:"Mike",balance:1000}
-)
-
-const session = db.getMongo().startSession()
-
-session.startTransaction()
-
-const custCollection = session.getDatabase("hdfcbank").customers
-
-custCollection.updateOne(
-  { _id: "c1" },
-  { $inc: { balance: -100 } }
-)
-
-custCollection.updateOne(
-  { _id: "c2" },
-  { $inc: { balance: 100 } }
-)
-
-session.commitTransaction()
-
-session.endSession()
